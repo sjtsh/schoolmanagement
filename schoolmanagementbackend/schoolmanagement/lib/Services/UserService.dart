@@ -47,7 +47,6 @@ class UserService {
   }
 
   Future<bool> logInWithSession(int id, BuildContext context) async {
-  print(id);
     Response res =
         await http.post(Uri.parse("$localhost/signinwithsession/"), body: {
       "id": id.toString(),

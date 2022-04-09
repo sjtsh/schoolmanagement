@@ -13,8 +13,9 @@ dependencies:
     sdk: flutter
   custom_navigation_bar:
   provider:
-  cupertino_icons: ^1.0.2
   http:
+  google_fonts:
+  cupertino_icons: ^1.0.2
   shared_preferences:
 
 
