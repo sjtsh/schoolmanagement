@@ -6,7 +6,7 @@ import 'package:schoolmanagement/Providers/Navigation.dart';
 import 'package:schoolmanagement/SessionCheck.dart';
 import 'package:schoolmanagement/SignIn/SignInScreen.dart';
 
-import 'Pages/ProfileScreen.dart';
+import 'Pages/ProfileTab/ProfileScreen.dart';
 import 'Providers/Calendar.dart';
 import 'Pages/RoutineTab/RoutineTab.dart';
 import 'Providers/Routine.dart';

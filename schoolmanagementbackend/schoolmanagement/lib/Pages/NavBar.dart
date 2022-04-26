@@ -25,13 +25,13 @@ class _NavBarState extends State<NavBar> {
       items: [
         CustomNavigationBarItem(
           icon: Icon(
-            Icons.person,
+            Icons.announcement,
             color: context.watch<Navigation>().index == 0
                 ? Colors.white
                 : Colors.white.withOpacity(0.5),
           ),
           title: Text(
-            "Profile",
+            "Announcements",
             style: TextStyle(
                 color: context.watch<Navigation>().index == 0
                     ? Colors.white

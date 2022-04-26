@@ -13,17 +13,23 @@ class SessionCheck extends StatelessWidget {
     return FutureBuilder(
         future: SharedPreferences.getInstance().then((prefs) async {
           int id = prefs.getInt("session") ?? -1;
-          if (id != -1) {
-            bool a = await UserService().logInWithSession(id, context);
-            return a;
-          } else {
+          if (id == -1) {
             return false;
           }
+          return await UserService()
+              .logInWithSession(id, context)
+              .then((value) {
+            print("guei");
+            return value;
+          });
         }),
         builder: (context, AsyncSnapshot snapshot) {
+          print(snapshot.data);
           if (snapshot.hasData) {
             bool isSession = snapshot.data;
+            print(snapshot.data);
             if (isSession) {
+              print("session");
               return HomePage();
             }
             return SignInScreen();

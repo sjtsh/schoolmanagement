@@ -26,18 +26,57 @@ class UserService {
         return false;
       } else {
         Map<String, dynamic> response = jsonDecode(res.body);
-        meUser = User(
+        context.read<Navigation>().meUser = User(
             response["id"],
             response["name"],
             response["year"],
             response["position"],
             response["attendance"],
             response["contact"],
-            response["img"],
             DateTime.parse(response["created"]),
             response["password"]);
         SharedPreferences prefs = await SharedPreferences.getInstance();
-        prefs.setInt("session", meUser!.id);
+        prefs.setInt("session", context.read<Navigation>().meUser!.id);
+        return true;
+      }
+    }
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text("Try Again")));
+    return false;
+  }
+
+  Future<bool> updateUser(BuildContext context,
+      {String? password, String? contact, String? img}) async {
+    Map<String, String> aJson = {
+      "id": context.read<Navigation>().meUser!.id.toString()
+    };
+    if (password != null) {
+      aJson["password"] = password;
+    }
+    if (contact != null) {
+      aJson["contact"] = contact;
+    }
+    if (img != null) {
+      aJson["img"] = img;
+    }
+    Response res =
+        await http.put(Uri.parse("$localhost/user/update/"), body: aJson);
+    if (res.statusCode == 200) {
+      if (jsonDecode(res.body) == false) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("Incorrect Credentials")));
+        return false;
+      } else {
+        Map<String, dynamic> response = jsonDecode(res.body);
+        context.read<Navigation>().meUser = User(
+            response["id"],
+            response["name"],
+            response["year"],
+            response["position"],
+            response["attendance"],
+            response["contact"],
+            DateTime.parse(response["created"]),
+            response["password"]);
         return true;
       }
     }
@@ -59,16 +98,17 @@ class UserService {
         return false;
       } else {
         Map<String, dynamic> response = jsonDecode(res.body);
-        meUser = User(
-            response["id"],
-            response["name"],
-            response["year"],
-            response["position"],
-            response["attendance"],
-            response["contact"],
-            response["img"],
-            DateTime.parse(response["created"]),
-            response["password"]);
+        int a = response["id"];
+        String name = response["name"];
+        int year = response["year"];
+        int position = response["position"];
+        int attendance = response["attendance"];
+        String contact = response["contact"];
+        DateTime created =
+        DateTime.parse(response["created"].toString().substring(0, 19));
+        String password = response["password"];
+        context.read<Navigation>().setUser(User(
+            id, name, year, position, attendance, contact, created, password));
         return true;
       }
     }

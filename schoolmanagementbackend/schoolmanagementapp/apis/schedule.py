@@ -17,15 +17,6 @@ def getRoutines(request, pk):
     return Response(returnable)
 
 
-# class Exam(models.Model):
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#     module = models.ForeignKey(Module, on_delete=models.CASCADE)
-#     day = models.DateField()
-#     start_time = models.TimeField()
-#     end_time = models.TimeField()
-
-#     def __str__(self):
-#         return self.start_time
 @api_view(['GET'])
 def getExams(request, pk):
     a = datetime.now()

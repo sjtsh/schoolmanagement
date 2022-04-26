@@ -54,7 +54,7 @@ class RoutineTab extends StatelessWidget {
                   ),
                   FutureBuilder(
                       future:
-                          RoutineService().getRoutines().then((value) async {
+                          RoutineService().getRoutines(context).then((value) async {
                         context.read<RoutineManagement>().routines = value;
                         context.read<Calendar>().events =
                             await EventService().getEvents();
@@ -97,7 +97,7 @@ class RoutineTab extends StatelessWidget {
             ),
           ),
           FutureBuilder(
-              future: RoutineService().getExams().then((value) {
+              future: RoutineService().getExams(context).then((value) {
                 context.read<RoutineManagement>().exams = value;
                 return 1;
               }),

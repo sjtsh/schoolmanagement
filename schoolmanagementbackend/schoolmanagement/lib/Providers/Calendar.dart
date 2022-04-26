@@ -30,34 +30,36 @@ class Calendar with ChangeNotifier, DiagnosticableTreeMixin {
   }
 
   void getCalendarView() {
-    int year = DateTime
+    int year = DateTime//getting current year
         .now()
         .year;
+
+    //getting 12 months of the year
     for (int i = 0; i < 12; i++) {
       int month = i+1;
-      int totalDays = getDaysInMonth(year, month);
-      int totalDaysInLastMonth = getDaysInMonth(year, month - 1);
-      int weekday = DateTime(year, month, 1).weekday % 7;
+      int totalDays = getDaysInMonth(year, month);//calculating total days in the month
+      int totalDaysInLastMonth = getDaysInMonth(year, month - 1);//calculating total days in the last month
+      int weekday = DateTime(year, month, 1).weekday % 7;//calculating weekday of the first day of the month
       List<int> allDays = [];
       List<List<int>> returnableList = [[], [], [], [], [], []];
       for (int i = 0; i < weekday; i++) {
-        allDays.add(totalDaysInLastMonth - i);
+        allDays.add(totalDaysInLastMonth - i);//this is the days from the past month
       }
       allDays = allDays.reversed.toList();
       for (int i = 1; i <= totalDays; i++) {
-        allDays.add(i);
+        allDays.add(i);//these are the days from this month
       }
       int counter = 0;
       while (allDays.length != 42) {
         counter++;
-        allDays.add(counter);
+        allDays.add(counter);//these are the days from next month
       }
 
       int a = 0;
       for (int i = 1; i <= allDays.length; i++) {
         returnableList[a].add(allDays[i - 1]);
         if (i % 7 == 0) {
-          a++;
+          a++; //splitting all the days into weeks
         }
       }
       calendars.add(returnableList);
@@ -71,27 +73,27 @@ class Calendar with ChangeNotifier, DiagnosticableTreeMixin {
     if (!todayFound && month == DateTime
         .now()
         .month) {
-      return Color(0xff797979);
+      return Color(0xff797979); //if today has already found and the month is current month then grayish color
     }
     if (monthFinished) {
-      return Colors.transparent;
+      return Colors.transparent; //if month has already been finished then transparent color
     }
     if ((i == DateTime
         .now()
         .day && month == DateTime
         .now()
         .month)) {
-      return Color(0xffFFB525);
+      return Color(0xffFFB525); //if the day is current then yellow color
     }
 
     if (checkInEvents(month, i)) {
-      return Color(0xff5B75CF);
+      return Color(0xff5B75CF); //if the day is consisted among events then it returns blue color
     }
     if (checkInHolidays(month, i) ||
         DateTime(DateTime
             .now()
             .year, month, i).weekday == 6) {
-      return Color(0xffCF5B5C);
+      return Color(0xffCF5B5C); //if the day is saturday or the day is among the holidays then it returns red color
     }
     return Colors.transparent;
   }

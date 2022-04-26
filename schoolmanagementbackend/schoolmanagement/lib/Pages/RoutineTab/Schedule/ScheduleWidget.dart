@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:schoolmanagement/Models/Schedule.dart';
 import 'package:schoolmanagement/global.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ScheduleWidget extends StatelessWidget {
   final Routine e;
@@ -49,7 +50,9 @@ class ScheduleWidget extends StatelessWidget {
                     ),
                   )),
             ),
-            SizedBox(width: 12,),
+            SizedBox(
+              width: 12,
+            ),
             Expanded(
                 child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,18 +70,23 @@ class ScheduleWidget extends StatelessWidget {
                       width: 12,
                     ),
                     e.meetLink != null
-                        ? Container(
-                            decoration: BoxDecoration(
-                              color: Color(0xff016f11),
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 2.0, horizontal: 6),
-                              child: Text(
-                                "Launch meet",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 12),
+                        ? GestureDetector(
+                            onTap: () async {
+                              await launch(e.meetLink!);
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Color(0xff016f11),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 2.0, horizontal: 6),
+                                child: Text(
+                                  "Launch meet",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 12),
+                                ),
                               ),
                             ),
                           )

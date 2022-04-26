@@ -11,7 +11,7 @@ def signIn(request):
     password = request.data["password"]
     try:
         user = User.objects.get(name=name, password=password)
-        return Response({"id": user.id, "name": user.name, "year": user.year, "position": user.position, "attendance": user.attendance, "contact": user.contact, "img": user.img, "created": user.created, "password": user.password})
+        return Response({"id": user.id, "name": user.name, "year": user.year, "position": user.position, "attendance": user.attendance, "contact": user.contact, "created": user.created, "password": user.password})
     except:
         return Response(False)
 
@@ -22,48 +22,23 @@ def signInWithSession(request):
     print(id)
     try:
         user = User.objects.get(id=id)
-        return Response({"id": user.id, "name": user.name, "year": user.year, "position": user.position, "attendance": user.attendance, "contact": user.contact, "img": user.img, "created": user.created, "password": user.password})
+        return Response({"id": user.id, "name": user.name, "year": user.year, "position": user.position, "attendance": user.attendance, "contact": user.contact, "created": user.created, "password": user.password})
     except:
         return Response(False)
 
 
-@api_view(['GET'])
-def alex(request):
-    return Response("Fuck you")
+@api_view(['PUT'])
+def updateUser(request):
+    id = int(request.data["id"])
+    print(id)
+    try:
+        user = User.objects.get(id=id)
+        if "contact" in request.data:
+            user.contact = request.data["contact"]
+        if "password" in request.data:
+            user.password = request.data["password"]
+        user.save()
+        return Response({"id": user.id, "name": user.name, "year": user.year, "position": user.position, "attendance": user.attendance, "contact": user.contact, "created": user.created, "password": user.password})
+    except:
+        return Response(False)
 
-
-@api_view(['GET'])
-def getRoutes(request):
-    routes = [
-        {
-            'Endpoint': '/categorys',
-            'method': 'GET',
-            'body': None,
-            'description': 'Returns all categories'
-        },
-        {
-            'Endpoint': '/categorys/id',
-            'method': 'GET',
-            'body': None,
-            'description': 'Returns a single category object'
-        },
-        {
-            'Endpoint': '/category/create/',
-            'method': 'POST',
-            'body': {'body': ''},
-            'description': 'Inserts a new category'
-        },
-        {
-            'Endpoint': '/category/id/update/',
-            'method': 'PUT',
-            'body': {'body': ''},
-            'description': 'Updates a existing category'
-        },
-        {
-            'Endpoint': '/category/id/delete/',
-            'method': 'DELETE',
-            'body': None,
-            'description': 'Deletes a existing category'
-        }
-    ]
-    return Response(routes)

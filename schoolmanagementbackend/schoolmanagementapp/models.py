@@ -10,7 +10,6 @@ class User(models.Model):
     position = models.IntegerField()
     attendance = models.IntegerField()
     contact = models.TextField()
-    img = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -83,16 +82,3 @@ class Exam(models.Model):
     
     def __str__(self):
         return self.start_time
-
-# class User(models.Model):
-#     email = models.EmailField(blank=True, null=True)
-#     bank_balance = models.FloatField()
-#     is_deactivated = models.BooleanField(default=False)
-#     pin_code = models.IntegerField(blank=True, null = True)
-#     theme_preference = models.ForeignKey(Theme, on_delete=models.CASCADE)
-#     avatar = models.ForeignKey(Avatar, on_delete=models.CASCADE)
-#     name = models.TextField()
-#     monthly_target_saving = models.FloatField()
-#     date_time = models.DateTimeField(auto_now_add=True)
-
-#     def __str__(self):

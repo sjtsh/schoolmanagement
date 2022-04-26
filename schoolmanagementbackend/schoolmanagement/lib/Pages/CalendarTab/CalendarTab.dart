@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:schoolmanagement/Pages/ProfileScreen.dart';
+import 'package:schoolmanagement/Pages/ProfileTab/ProfileScreen.dart';
 import 'package:schoolmanagement/Providers/Calendar.dart';
 import 'package:schoolmanagement/Services/EventService.dart';
 
@@ -71,6 +71,7 @@ class _CalendarTabState extends State<CalendarTab> {
                                   color: Color(0xff404040),
                                   shape: BoxShape.circle,
                                 ),
+                                child: Icon(Icons.person, color: Colors.white,),
                               ),
                             )
                           ],
